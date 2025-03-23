@@ -8,9 +8,9 @@
   LANGUAGE:         Luau
   
   AUTHOR:           Illinois_Roadbuff
-  VERSION:          0.1.0-alpha.3
+  VERSION:          0.1.0-alpha.4
   CREATED:          2024-9-16 8:56 PM CDT  
-  LAST UPDATED:     2025-3-23 4:40 PM CDT  
+  LAST UPDATED:     2025-3-23 4:42 PM CDT  
   LICENSE:          MIT License
 
   GITHUB REPO:      https://github.com/illinois-roadbuff/AC-GroupSeatLock
@@ -26,7 +26,7 @@ local Players:Players = game.GetService(game, "Players") :: Players
 
 -- // Core Configuration
 
-local GroupID = nil -- **(IMPORTANT) ENTER GROUP ID HERE**
+local GroupID = 0 -- **(IMPORTANT) ENTER GROUP ID HERE**
 -- Example: local GroupID = 00000000
 local Enabled = true
 local UseNewDetection = true
@@ -59,7 +59,7 @@ if Enabled then
 		warn(": GroupSeatLock : Is the VehicleSeat parent set?")
 		return
 	end
-	if not GroupID and ErrorInConsole then
+	if GroupID == 0 and ErrorInConsole then
 		warn(": GroupSeatLock : Aborting; Did you forget to add a group ID?")
 		return
 	end
