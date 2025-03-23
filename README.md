@@ -1,7 +1,7 @@
 # AC-GroupSeatLock
 **Lock seats in an A-Chassis vehicle to a specified group. Licensed under MIT (open-source).**
 
-This *should* work with every A-Chassis vehicle.
+This *should* work with every A-Chassis vehicle which inserts an "A-Chassis Interface."
 
 All contributions are welcome!
 
