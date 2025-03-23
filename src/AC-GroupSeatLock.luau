@@ -26,7 +26,7 @@ local Players:Players = game.GetService(game, "Players") :: Players
 
 -- // Core Configuration
 
-local GroupID = 2561922 -- **(IMPORTANT) ENTER GROUP ID HERE**
+local GroupID = nil -- **(IMPORTANT) ENTER GROUP ID HERE**
 -- Example: local GroupID = 00000000
 local Enabled = true
 local UseNewDetection = true
