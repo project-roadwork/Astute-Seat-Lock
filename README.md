@@ -1,7 +1,15 @@
 # AC-GroupSeatLock
 **Lock seats in an A-Chassis vehicle to a specified group. Licensed under MIT (open-source).**
 
-This *should* work with every A-Chassis vehicle which inserts an "A-Chassis Interface."
+**Features:**
+* Customizeable
+* Two types of detection methods which uses `SeatWelds` and the `.Occupant` property.
+* Automatically deletes the `A-Chassis Interface` from the unauthorized user.
+* Three methods of unauthorized handling: teleporting the user away from the vehicle, killing the user, and jumping the user away from the VehicleSeat.
+* Double checks if the `A-Chassis Interface` *is* deleted.
+
+
+This *should* work with every A-Chassis vehicle which inserts an `A-Chassis Interface`.
 
 All contributions are welcome!
 
@@ -23,12 +31,12 @@ You can find this in your group link: `www.roblox.com/groups/YOURID` or `www.rob
 
 ![image](https://github.com/user-attachments/assets/06e31cd4-1dad-438a-af61-60535bb11764)
 
-Modify the accompanying configuration to your liking.
+Modify the accompanying configuration to your liking. Ensure you have `NewDetection` enabled to utilize full benefit of this script.
 
 ---
 
 
-All the other information you need is in the script. If you are unable to set this up by yourself, you may use the sample in this repository.
+All the other information you need is in the script. If you are unable to set this up by yourself, you may use the sample in this repository. If you need additional help, you may join my [communications server](illinois-roadbuff.github.io/to/dis-primary).
 
 ---
 
