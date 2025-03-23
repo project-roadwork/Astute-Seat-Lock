@@ -8,9 +8,9 @@
   LANGUAGE:         Luau
   
   AUTHOR:           Illinois_Roadbuff
-  VERSION:          0.1.0-alpha.2
+  VERSION:          0.1.0-alpha.3
   CREATED:          2024-9-16 8:56 PM CDT  
-  LAST UPDATED:     2025-3-23 3:09 AM CDT  
+  LAST UPDATED:     2025-3-23 4:40 PM CDT  
   LICENSE:          MIT License
 
   GITHUB REPO:      https://github.com/illinois-roadbuff/AC-GroupSeatLock
@@ -21,11 +21,13 @@
 -------------------------------------------------------------------------]]
 
 local VehicleSeat:VehicleSeat = script.Parent
+local Car = VehicleSeat.Parent
 local Players:Players = game.GetService(game, "Players") :: Players
 
 -- // Core Configuration
 
-local GroupID = nil -- **(IMPORTANT) ENTER GROUP ID HERE**
+local GroupID = 2561922 -- **(IMPORTANT) ENTER GROUP ID HERE**
+-- Example: local GroupID = 00000000
 local Enabled = true
 local UseNewDetection = true
 
@@ -53,7 +55,11 @@ local GUIWaitTimeForDoubeCheck = 2 -- The wait time to double check if the A-Cha
 local DelayTime = 0.02 -- Delay time after detection
 
 if Enabled then
-	if GroupID == nil and ErrorInConsole then
+	if not Car and ErrorInConsole then
+		warn(": GroupSeatLock : Is the VehicleSeat parent set?")
+		return
+	end
+	if not GroupID and ErrorInConsole then
 		warn(": GroupSeatLock : Aborting; Did you forget to add a group ID?")
 		return
 	end
@@ -65,7 +71,7 @@ if Enabled then
 				end
 			end) :: boolean, type(string)
 			if not Success and Response and ErrorInConsole then
-				warn(": GroupSeatLock : An error occurred in MoveRootPart: "..Response)
+				warn(`: GroupSeatLock : An error occurred in MoveRootPart: {Response}`)
 			end
 		end
 
@@ -77,7 +83,7 @@ if Enabled then
 					local Interface:ScreenGui? = PlayerGui:FindFirstChild("A-Chassis Interface") :: ScreenGui | nil
 					if Interface then
 						if LogInConsole then
-							print(": GroupSeatLock : Destroyed UI from "..Player.Name)
+							print(`: GroupSeatLock : Destroyed UI from {Player.Name}`)
 						end
 						Interface:Destroy()
 					end
@@ -86,14 +92,14 @@ if Enabled then
 
 					if Interface then
 						if LogInConsole then
-							print(": GroupSeatLock : (Double Check) Destroyed UI from "..Player.Name)
+							print(`: GroupSeatLock : (Double Check) Destroyed UI from {Player.Name}`)
 						end
 						Interface:Destroy()
 					end
 				end
 			end) :: boolean, type(string)
 			if not Success and Response and ErrorInConsole then
-				warn(": GroupSeatLock : An error occurred in DestroyInterface: "..Response)
+				warn(`: GroupSeatLock : An error occurred in DestroyInterface: {Response}`)
 			end
 		end
 
@@ -105,7 +111,7 @@ if Enabled then
 				end
 			end) :: boolean, type(string)
 			if not Success and Response and ErrorInConsole then
-				warn(": GroupSeatLock : An error occurred in DestroyWeld: "..Response)
+				warn(`: GroupSeatLock : An error occurred in DestroyWeld: {Response}`)
 			end
 		end
 
@@ -120,8 +126,8 @@ if Enabled then
 							if Sucess then
 								if not Authorized then
 									task.spawn(DestroyInterface, Player)
-									if LogInConsole then
-										warn(": GroupSeatLock : "..Player.Name.." tried to drive an ISP car! (SeatWeld)")
+									if LogInConsole and Car then
+										warn(`: GroupSeatLock : {Player.Name} tried to drive {Car.Name}! (SeatWeld)`)
 									end
 									child:Destroy()
 									task.wait(DelayTime)
@@ -134,7 +140,7 @@ if Enabled then
 							else
 								task.spawn(DestroyInterface, Player)
 								if ErrorInConsole and Authorized then
-									warn(": GroupSeatLock : An error occured while checking GroupID! Error:"..Authorized)-- Error response if no success
+									warn(`: GroupSeatLock : An error occured while checking GroupID! Error: {Authorized}`) -- Error response if no success
 								end 
 								child:Destroy()
 								task.wait(DelayTime)
@@ -148,7 +154,7 @@ if Enabled then
 					end
 				end) :: boolean, type(string)
 				if not Success and Response and ErrorInConsole then
-					warn("An error occurred in SeatWeld detection: "..Response)
+					warn(`An error occurred in SeatWeld detection: {Response}`)
 				end
 			end)
 		end
@@ -164,8 +170,8 @@ if Enabled then
 							local Sucess, Authorized: string? = pcall(Player.IsInGroup, Player, GroupID)
 							if Sucess then
 								if not Authorized then
-									if LogInConsole then
-										warn(": GroupSeatLock : "..Player.Name.." tried to drive an ISP car! (Occupant)")
+									if LogInConsole and Car then
+										warn(`: GroupSeatLock : {Player.Name} tried to drive {Car.Name}! (Occupant)`)
 									end
 									task.spawn(DestroyInterface, Player)
 									task.spawn(DestroyWeld, VehicleSeat)
@@ -178,7 +184,7 @@ if Enabled then
 								end
 							else
 								if ErrorInConsole and Authorized then
-									warn(": GroupSeatLock : An error occured while checking GroupID! Error:"..Authorized)-- Error response if no success
+									warn(`: GroupSeatLock : An error occured while checking GroupID! Error: {Authorized}`)-- Error response if no success
 								end 
 								task.spawn(DestroyInterface, Player)
 								task.spawn(DestroyWeld, VehicleSeat)
@@ -193,7 +199,7 @@ if Enabled then
 					end
 				end) :: boolean, type(string)
 				if not Success and Response and ErrorInConsole then
-					warn(": GroupSeatLock : An error occurred in Occupant detection: "..Response)
+					warn(`: GroupSeatLock : An error occurred in Occupant detection: {Response}`)
 				end
 			end)
 		end
