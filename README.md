@@ -36,7 +36,7 @@ Modify the accompanying configuration to your liking. Ensure you have `NewDetect
 ---
 
 
-All the other information you need is in the script. If you are unable to set this up by yourself, you may use the sample in this repository. If you need additional help, you may join my [communications server](illinois-roadbuff.github.io/to/dis-primary).
+All the other information you need is in the script. If you are unable to set this up by yourself, you may use the [sample](https://github.com/illinois-roadbuff/AC-GroupSeatLock/tree/6d9e40ff4f6e941e58ce9bd47e7267aee1873b0d/samples) in this repository. If you need additional help, you may join my [communications server](illinois-roadbuff.github.io/to/dis-primary).
 
 ---
 
