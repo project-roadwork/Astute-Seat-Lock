@@ -1,4 +1,4 @@
-# AC-GroupSeatLock
+# Astute Seat-Lock
 **Lock seats in an A-Chassis vehicle to a specified group. Licensed under Apache-2.0 (open-source).**
 
 **Features:**
