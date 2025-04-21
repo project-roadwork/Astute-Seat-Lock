@@ -1,5 +1,5 @@
-# AC-GroupSeatLock
-**Lock seats in an A-Chassis vehicle to a specified group. Licensed under MIT (open-source).**
+# Astute Seat-Lock
+**Lock seats in an A-Chassis vehicle to a specified group. Licensed under Apache-2.0 (open-source).**
 
 **Features:**
 * Customizeable
@@ -36,7 +36,11 @@ Modify the accompanying configuration to your liking. Ensure you have `NewDetect
 ---
 
 
+<<<<<<< HEAD
 All the other information you need is in the script. If you are unable to set this up by yourself, you may use the [sample](https://github.com/illinois-roadbuff/AC-GroupSeatLock/tree/6d9e40ff4f6e941e58ce9bd47e7267aee1873b0d/samples) in this repository. If you need additional help, you may join my [communications server](https://illinois-roadbuff.github.io/to/dis-primary).
+=======
+All the other information you need is in the script. If you are unable to set this up by yourself, you may use the sample in this repository. If you need additional help, you may join my [communications server](https://illinois-roadbuff.github.io/to/dis-primary).
+>>>>>>> development
 
 ## Showcase (all features)
 [![YouTube](http://i.ytimg.com/vi/003UnVzvEI4/hqdefault.jpg)](https://www.youtube.com/watch?v=003UnVzvEI4)
