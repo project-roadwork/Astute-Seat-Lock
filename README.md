@@ -43,7 +43,7 @@ Modify the accompanying configuration to your liking.
 
 All the other information you need is in the script. If you are unable to set this up by yourself, you may use the sample in this repository. If you need additional help, you may join my [communications server](https://illinois-roadbuff.github.io/to/dis-primary).
 
-## Showcase (all features) (outdated)
+## Showcase (all features) (outdated; v0.1.0-alpha.4)
 [![YouTube](http://i.ytimg.com/vi/003UnVzvEI4/hqdefault.jpg)](https://www.youtube.com/watch?v=003UnVzvEI4)
 
 ---
