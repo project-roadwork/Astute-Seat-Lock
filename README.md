@@ -8,6 +8,11 @@
 * Three methods of unauthorized handling: teleporting the user away from the vehicle, killing the user, and jumping the user away from the VehicleSeat.
 * Double checks if the `A-Chassis Interface` *is* deleted.
 
+**Internal Checks and Safeguards:**
+* Protected call  (`pcall()`) usage
+* GroupId validation
+* Seat and script hierarchy checks
+* Compatibility warnings
 
 This *should* work with every A-Chassis vehicle which inserts an `A-Chassis Interface`.
 
@@ -15,30 +20,30 @@ All contributions are welcome!
 
 ## Installation
 
-![image](https://github.com/user-attachments/assets/1f503dd9-a6d1-4a1e-acc5-690a55e347d1)
+![image](https://codeberg.org/Astute-Corridor/Astute-Seat-Lock/raw/branch/development/photos/Screenshot%202025-04-22%20201454.png)
 
-Insert the script under the `VehicleSeat` of the vehicle. May be called "DriveSeat" or other names. 
+Insert the script as a descendant the `VehicleSeat` of the vehicle. May be called "DriveSeat" or other names. The `VehicleSeat` must be parented under the Vehicle.
 Do not insert this script into A-Chassis plugins; it will not work.
 
 ---
 
-![image](https://github.com/user-attachments/assets/d0432b6f-fd53-495d-9d09-f5010849e331)
+![image](https://codeberg.org/Astute-Corridor/Astute-Seat-Lock/raw/branch/development/photos/Screenshot%202025-04-22%20201720.png)
 
 Change the `GroupId` variable to your group/community ID. 
 You can find this in your group link: `www.roblox.com/groups/YOURID` or `www.roblox.com/communities/YOURID`.
 
 ---
 
-![image](https://github.com/user-attachments/assets/06e31cd4-1dad-438a-af61-60535bb11764)
+![image](https://codeberg.org/Astute-Corridor/Astute-Seat-Lock/raw/branch/development/photos/Screenshot%202025-04-22%20201751.png)
 
-Modify the accompanying configuration to your liking. Ensure you have `NewDetection` enabled to utilize full benefit of this script.
+Modify the accompanying configuration to your liking. 
 
 ---
 
 
 All the other information you need is in the script. If you are unable to set this up by yourself, you may use the sample in this repository. If you need additional help, you may join my [communications server](https://illinois-roadbuff.github.io/to/dis-primary).
 
-## Showcase (all features)
+## Showcase (all features) (outdated)
 [![YouTube](http://i.ytimg.com/vi/003UnVzvEI4/hqdefault.jpg)](https://www.youtube.com/watch?v=003UnVzvEI4)
 
 ---
