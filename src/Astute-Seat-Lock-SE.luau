@@ -1,8 +1,6 @@
 --!native
 --!strict
 
--- ** THIS IS A SAMPLE AND MAY NOT BE UP TO DATE **
-
 --[[-[Astute-Seat-Lock-Standalone-Edition]-------------------------------------
   FILE:             Astute-Seat-Lock-SE.luau
   DESCRIPTION:      Open-sourced script to lock seats in an A-Chassis vehicle to
@@ -15,7 +13,7 @@
   AUTHOR:           Illinois_Roadbuff and the Astute-Corridor Contributors
   VERSION:          0.2.0-alpha.1
   CREATED:          2024-9-16 8:56 PM CDT  
-  LAST UPDATED:     2025-4-22 8:35 PM CDT  
+  LAST UPDATED:     2025-4-22 8:40 PM CDT  
   LICENSE:          Apache-2.0
 
   CODEBERG REPO:    https://codeberg.org/Astute-Corridor/Astute-Seat-Lock/
