@@ -22,7 +22,7 @@ All contributions are welcome!
 
 ![image](https://codeberg.org/Astute-Corridor/Astute-Seat-Lock/raw/branch/development/photos/Screenshot%202025-04-22%20201454.png)
 
-Insert the script as a descendant the `VehicleSeat` of the vehicle. May be called "DriveSeat" or other names. The `VehicleSeat` must be parented under the Vehicle.
+Insert the script as a descendant the `VehicleSeat` of the vehicle. May be called "DriveSeat" or other names. The `VehicleSeat` must be parented under the vehicle.
 Do not insert this script into A-Chassis plugins; it will not work.
 
 ---
