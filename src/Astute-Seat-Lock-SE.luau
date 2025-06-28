@@ -13,7 +13,7 @@
   AUTHOR:           Illinois_Roadbuff and the Astute-Corridor Contributors
   VERSION:          0.2.0-alpha.1
   CREATED:          2024-9-16 8:56 PM CDT  
-  LAST UPDATED:     2025-4-22 8:40 PM CDT  
+  LAST UPDATED:     2025-6-28 4:11 PM CDT  
   LICENSE:          Apache-2.0
 
   CODEBERG REPO:    https://codeberg.org/Astute-Corridor/Astute-Seat-Lock/
@@ -82,10 +82,10 @@ local GUIWaitTimeForDoubeCheck = 2 -- The wait time to double check if the A-Cha
 local DelayTime = 0.02 -- Delay time after detection
 
 -- // Other Information
-local version = "v0.2.0-alpha.1"
+local version = "v0.2.0-alpha.2"
 
 if Enabled then
- -- // Prerequisites; checking
+	-- // Prerequisites; checking
 	if not VehicleSeat then
 		warn(`:: Astute-Seat-Lock, {version} :: Aborting; Is the VehicleSeat parent set?`)
 		return
@@ -107,7 +107,7 @@ if Enabled then
 	if VehicleSeat:IsA("Seat") and (LogInConsole or ErrorInConsole) then
 		warn(`:: Astute-Seat-Lock, {version} :: WARNING - Ordinary seats are NOT fully compatible with this script. Use with caution!`)
 	end
--- // Init
+	-- // Init
 	if OccupantDetection or SeatWeldDetection then
 		local function MoveRootPart(HumanoidRootPart: BasePart)
 			local Success:boolean, Response: string? = pcall(function()
@@ -246,6 +246,11 @@ if Enabled then
 				end
 			end)
 		end
+	else
+		if LogInConsole or ErrorInConsole then
+			warn(`:: Astute-Seat-Lock, {version} :: WARNING - No detection has been enabled in the script! Disabling...`)
+		end
+		script.Enabled = false
 	end
 else
 	script.Enabled = false
