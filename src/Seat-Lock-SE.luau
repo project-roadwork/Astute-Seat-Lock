@@ -1,26 +1,28 @@
 --!native
 --!strict
 
---[[-[Astute-Seat-Lock-Standalone-Edition]-------------------------------------
-  FILE:             Astute-Seat-Lock-SE.luau
+--[[-[PR-Seat-Lock-Standalone-Edition]-------------------------------------
+  FILE:             Seat-Lock-SE.luau
   DESCRIPTION:      Open-sourced script to lock seats in an A-Chassis vehicle to
                     a specified group. Use the accompanying repository links for 
                     documentation, help, or to propose a suggestion or comment.
 					The NOTICE file can be found in the respository links.
-  USAGE:            ./Astute-Seat-Lock-SE.luau
+  USAGE:            ./Seat-Lock-SE.luau
   LANGUAGE:         Luau
   
-  AUTHOR:           Illinois_Roadbuff and the Astute-Corridor Contributors
-  VERSION:          0.2.0-alpha.1
+  AUTHOR:           Illinois_Roadbuff and the Project Roadwork Contributors
+  VERSION:          0.2.0-alpha.2
   CREATED:          2024-9-16 8:56 PM CDT  
-  LAST UPDATED:     2025-6-28 4:11 PM CDT  
+  LAST UPDATED:     2025-7-24 3:45 AM CDT  
   LICENSE:          Apache-2.0
 
-  CODEBERG REPO:    https://codeberg.org/Astute-Corridor/Astute-Seat-Lock/
-  GITHUB REPO:      https://github.com/Astute-Corridor/Astute-Seat-Lock/ (DEPRECATED)
+  CODEBERG REPO:    https://codeberg.org/project-roadwork/seat-lock/
+  GITHUB REPO:      https://github.com/project-roadwork/seat-lock/ (DEPRECATED)
 -----------------------------------------------------------------------------------]]  
 
 --[[-[Apache-2.0 License Header]------------------------------------------------
+Copyright 2025 Illinois_Roadbuff and the Project Roadwork Contributors
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
