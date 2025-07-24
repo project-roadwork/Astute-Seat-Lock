@@ -11,9 +11,9 @@
   LANGUAGE:         Luau
   
   AUTHOR:           Illinois_Roadbuff and the Project Roadwork Contributors
-  VERSION:          0.2.0-alpha.2
+  VERSION:          0.2.0-alpha.3
   CREATED:          2024-9-16 8:56 PM CDT  
-  LAST UPDATED:     2025-7-24 3:45 AM CDT  
+  LAST UPDATED:     2025-7-24 3:40 PM CDT  
   LICENSE:          Apache-2.0
 
   CODEBERG REPO:    https://codeberg.org/project-roadwork/seat-lock/
@@ -84,30 +84,30 @@ local GUIWaitTimeForDoubeCheck = 2 -- The wait time to double check if the A-Cha
 local DelayTime = 0.02 -- Delay time after detection
 
 -- // Other Information
-local version = "v0.2.0-alpha.2"
+local version = "v0.2.0-alpha.3"
 
 if Enabled then
 	-- // Prerequisites; checking
 	if not VehicleSeat then
-		warn(`:: Astute-Seat-Lock, {version} :: Aborting; Is the VehicleSeat parent set?`)
+		warn(`:: Seat-Lock, {version} :: Aborting; Is the VehicleSeat parent set?`)
 		return
 	end
 	if not VehicleSeat.Parent then
-		warn(`:: Astute-Seat-Lock, {version} :: Aborting; Is the VehicleSeat parented under a model?`)
+		warn(`:: Seat-Lock, {version} :: Aborting; Is the VehicleSeat parented under a model?`)
 		return
 	else
 		Car = VehicleSeat.Parent
 	end 
 	if typeof(GroupID) ~= "number" or GroupID <= 0 then
-		warn(`:: Astute-Seat-Lock, {version} :: Aborting; Did you forget to add a group ID? Is the GroupID a positive integer? Is the GroupId an integer at all?`)
+		warn(`:: Seat-Lock, {version} :: Aborting; Did you forget to add a group ID? Is the GroupID a positive integer? Is the GroupId an integer at all?`)
 		return
 	end
 	if (not VehicleSeat:IsA("VehicleSeat") and not VehicleSeat:IsA("Seat")) then
-		warn(`:: Astute-Seat-Lock, {version} :: Aborting; Is the script placed under a VehicleSeat or an ordinary seat?`)
+		warn(`:: Seat-Lock, {version} :: Aborting; Is the script placed under a VehicleSeat or an ordinary seat?`)
 		return
 	end
 	if VehicleSeat:IsA("Seat") and (LogInConsole or ErrorInConsole) then
-		warn(`:: Astute-Seat-Lock, {version} :: WARNING - Ordinary seats are NOT fully compatible with this script. Use with caution!`)
+		warn(`:: Seat-Lock, {version} :: WARNING - Ordinary seats are NOT fully compatible with this script. Use with caution!`)
 	end
 	-- // Init
 	if OccupantDetection or SeatWeldDetection then
@@ -118,7 +118,7 @@ if Enabled then
 				end
 			end) :: boolean, type(string)
 			if not Success and Response and ErrorInConsole then
-				warn(`:: Astute-Seat-Lock, {version} :: An error occurred in MoveRootPart: {Response}`)
+				warn(`:: Seat-Lock, {version} :: An error occurred in MoveRootPart: {Response}`)
 			end
 		end
 
@@ -129,21 +129,21 @@ if Enabled then
 					local Interface:ScreenGui? = PlayerGui:WaitForChild("A-Chassis Interface", 1) :: ScreenGui | nil
 					if Interface and Interface:IsA("ScreenGui") then
 						if LogInConsole then
-							print(`:: Astute-Seat-Lock, {version} :: Destroyed UI from {Player.Name}`)
+							print(`:: Seat-Lock, {version} :: Destroyed UI from {Player.Name}`)
 						end
 						Interface:Destroy()
 					end
 					task.wait(GUIWaitTime)
 					if Interface and Interface:IsA("ScreenGui") then
 						if LogInConsole then
-							print(`:: Astute-Seat-Lock, {version} :: (Double Check) Destroyed UI from {Player.Name}`)
+							print(`:: Seat-Lock, {version} :: (Double Check) Destroyed UI from {Player.Name}`)
 						end
 						Interface:Destroy()
 					end
 				end
 			end) :: boolean, type(string)
 			if not Success and Response and ErrorInConsole then
-				warn(`:: Astute-Seat-Lock, {version} :: An error occurred in DestroyInterface: {Response}`)
+				warn(`:: Seat-Lock, {version} :: An error occurred in DestroyInterface: {Response}`)
 			end
 		end
 
@@ -155,7 +155,7 @@ if Enabled then
 				end
 			end) :: boolean, type(string)
 			if not Success and Response and ErrorInConsole then
-				warn(`:: Astute-Seat-Lock, {version} :: An error occurred in DestroyWeld: {Response}`)
+				warn(`:: Seat-Lock, {version} :: An error occurred in DestroyWeld: {Response}`)
 			end
 		end
 
@@ -172,7 +172,7 @@ if Enabled then
 								if not Authorized then
 									task.spawn(DestroyInterface, Player)
 									if LogInConsole and Car then
-										warn(`:: Astute-Seat-Lock, {version} :: {Player.Name} tried to drive {Car.Name}! (SeatWeld)`)
+										warn(`:: Seat-Lock, {version} :: {Player.Name} tried to drive {Car.Name}! (SeatWeld)`)
 									end
 									child:Destroy()
 									task.wait(DelayTime)
@@ -185,7 +185,7 @@ if Enabled then
 							else
 								task.spawn(DestroyInterface, Player)
 								if ErrorInConsole and Authorized then
-									warn(`:: Astute-Seat-Lock, {version} :: An error occured while checking GroupID! Error: {Authorized}`) -- Error response if no success
+									warn(`:: Seat-Lock, {version} :: An error occured while checking GroupID! Error: {Authorized}`) -- Error response if no success
 								end 
 								child:Destroy()
 								task.wait(DelayTime)
@@ -199,7 +199,7 @@ if Enabled then
 					end
 				end) :: boolean, type(string)
 				if not Success and Response and ErrorInConsole then
-					warn(`:: Astute-Seat-Lock, {version} :: An error occurred in SeatWeld detection: {Response}`)
+					warn(`:: Seat-Lock, {version} :: An error occurred in SeatWeld detection: {Response}`)
 				end
 			end)
 		end
@@ -216,7 +216,7 @@ if Enabled then
 							if Sucess then
 								if not Authorized then
 									if LogInConsole and Car then
-										warn(`:: Astute-Seat-Lock, {version} :: {Player.Name} tried to drive {Car.Name}! (Occupant)`)
+										warn(`:: Seat-Lock, {version} :: {Player.Name} tried to drive {Car.Name}! (Occupant)`)
 									end
 									task.spawn(DestroyInterface, Player)
 									task.spawn(DestroyWeld, VehicleSeat)
@@ -229,7 +229,7 @@ if Enabled then
 								end
 							else
 								if ErrorInConsole and Authorized then
-									warn(`:: Astute-Seat-Lock, {version} :: An error occured while checking GroupID! Error: {Authorized}`)-- Error response if no success
+									warn(`:: Seat-Lock, {version} :: An error occured while checking GroupID! Error: {Authorized}`)-- Error response if no success
 								end 
 								task.spawn(DestroyInterface, Player)
 								task.spawn(DestroyWeld, VehicleSeat)
@@ -244,13 +244,13 @@ if Enabled then
 					end
 				end) :: boolean, type(string)
 				if not Success and Response and ErrorInConsole then
-					warn(`:: Astute-Seat-Lock, {version} :: An error occurred in Occupant detection: {Response}`)
+					warn(`:: Seat-Lock, {version} :: An error occurred in Occupant detection: {Response}`)
 				end
 			end)
 		end
 	else
 		if LogInConsole or ErrorInConsole then
-			warn(`:: Astute-Seat-Lock, {version} :: WARNING - No detection has been enabled in the script! Disabling...`)
+			warn(`:: Seat-Lock, {version} :: WARNING - No detection has been enabled in the script! Disabling...`)
 		end
 		script.Enabled = false
 	end
