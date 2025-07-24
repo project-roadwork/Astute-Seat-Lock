@@ -62,7 +62,7 @@ All the other information you need is in the script. If you are unable to set th
 
 * ¹ Proprietary use in MPL is permitted (allowed) as long as the MPL-covered files remain open souce.
 * (Opinion) I've seen multiple individuals license Roblox code under GPL / AGPL which honestly doesn't make sense to me in my opinion. Technically, the whole Roblox engine has to be "open-sourced" in order for the code to be used even though the place can be uncopylocked which doesn't make any sense at all.
-* (Opinion) Why not MIT? Some developers may prefer a specific patent clause to protect from a patent lawsuit from contributors, which the MIT license doesn't provide. There is also a MIT-like license "BSD-3+Clause" which includes a patent clause. HOWEVER, this sparked legal issues and confusion when it was utilized in Facebook's react library. This is why I used the Apache License 2.0 for most of my low-end work.
+* (Opinion) Why not MIT? Some developers may prefer a specific patent clause to protect from a patent lawsuit from contributors, which the MIT license doesn't provide. There is also a MIT-like license "BSD-3+Clause" which includes a patent clause. HOWEVER, this sparked legal issues and confusion when it was utilized in Facebook's react library. This is why I use the Apache License 2.0 for most of my low-end work.
 
 ---
 
