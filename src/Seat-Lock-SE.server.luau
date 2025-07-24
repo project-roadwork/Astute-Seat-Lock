@@ -2,12 +2,12 @@
 --!strict
 
 --[[-[PR-Seat-Lock-Standalone-Edition]-------------------------------------
-  FILE:             Seat-Lock-SE.luau
+  FILE:             Seat-Lock-SE.server.luau
   DESCRIPTION:      Open-sourced script to lock seats in an A-Chassis vehicle to
                     a specified group. Use the accompanying repository links for 
                     documentation, help, or to propose a suggestion or comment.
 					The NOTICE file can be found in the respository links.
-  USAGE:            ./Seat-Lock-SE.luau
+  USAGE:            ./Seat-Lock-SE.server.luau
   LANGUAGE:         Luau
   
   AUTHOR:           Illinois_Roadbuff and the Project Roadwork Contributors
