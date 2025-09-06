@@ -61,6 +61,7 @@ All the other information you need is in the script. If you are unable to set th
 | **Roblox Asset Usage**   | ✅      | ✅          | ℹ️ Depends; must share any changes    | ❌ May violate terms      |
 
 * ¹ Proprietary use in MPL is permitted (allowed) as long as the MPL-covered files remain open souce.
+* (Opinion) I've seen multiple individuals license Roblox code under GPL / AGPL which honestly doesn't make sense to me in my opinion. Technically, the whole Roblox engine has to be "open-sourced" in order for the code to be used even though the place can be uncopylocked, which doesn't make any sense at all.
 
 ---
 
