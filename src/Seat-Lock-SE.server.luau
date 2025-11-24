@@ -10,14 +10,17 @@
   USAGE:            ./Seat-Lock-SE.server.luau
   LANGUAGE:         Luau
   
-  AUTHOR:           Illinois_Roadbuff and the Project Roadwork Contributors
-  VERSION:          0.2.0-alpha.3
+  GROUP:            Project Roadwork
+  VERSION:          0.2.1-alpha.1
   CREATED:          2024-9-16 8:56 PM CDT  
-  LAST UPDATED:     2025-7-24 3:40 PM CDT  
+  LAST UPDATED:     2025-11-24 4:51 PM CST  
   LICENSE:          Apache-2.0
 
   CODEBERG REPO:    https://codeberg.org/project-roadwork/seat-lock/
   GITHUB REPO:      https://github.com/project-roadwork/seat-lock/ (DEPRECATED)
+  
+  AUTHORS:
+    Illinois_Roadbuff / Rogue Jr (2653606809) - October 29th, 2025 - Created the file
 -----------------------------------------------------------------------------------]]  
 
 --[[-[Apache-2.0 License Header]------------------------------------------------
@@ -86,175 +89,175 @@ local DelayTime = 0.02 -- Delay time after detection
 -- // Other Information
 local version = "v0.2.0-alpha.3"
 
-if Enabled then
-	-- // Prerequisites; checking
-	if not VehicleSeat then
-		warn(`:: Seat-Lock, {version} :: Aborting; Is the VehicleSeat parent set?`)
-		return
+-- // Functions
+local function MoveRootPart(HumanoidRootPart: BasePart)
+	local Success:boolean, Response: string? = pcall(function()
+		if MoveAway and HumanoidRootPart then
+			HumanoidRootPart.CFrame *= CFrame.new(MoveAwayDistance, MoveAwayDistance, MoveAwayDistance)
+		end
+	end) :: boolean, type(string)
+	if not Success and Response and ErrorInConsole then
+		warn(`:: Seat-Lock, {version} :: An error occurred in MoveRootPart: {Response}`)
 	end
-	if not VehicleSeat.Parent then
-		warn(`:: Seat-Lock, {version} :: Aborting; Is the VehicleSeat parented under a model?`)
-		return
-	else
-		Car = VehicleSeat.Parent
-	end 
-	if typeof(GroupID) ~= "number" or GroupID <= 0 then
-		warn(`:: Seat-Lock, {version} :: Aborting; Did you forget to add a group ID? Is the GroupID a positive integer? Is the GroupId an integer at all?`)
-		return
-	end
-	if (not VehicleSeat:IsA("VehicleSeat") and not VehicleSeat:IsA("Seat")) then
-		warn(`:: Seat-Lock, {version} :: Aborting; Is the script placed under a VehicleSeat or an ordinary seat?`)
-		return
-	end
-	if VehicleSeat:IsA("Seat") and (LogInConsole or ErrorInConsole) then
-		warn(`:: Seat-Lock, {version} :: WARNING - Ordinary seats are NOT fully compatible with this script. Use with caution!`)
-	end
-	-- // Init
-	if OccupantDetection or SeatWeldDetection then
-		local function MoveRootPart(HumanoidRootPart: BasePart)
-			local Success:boolean, Response: string? = pcall(function()
-				if MoveAway and HumanoidRootPart then
-					HumanoidRootPart.CFrame *= CFrame.new(MoveAwayDistance, MoveAwayDistance, MoveAwayDistance)
+end
+
+local function DestroyInterface(Player:Player)
+	local Success, Response: string? = pcall(function()
+		local PlayerGui:PlayerGui? = Player:WaitForChild("PlayerGui", 1) :: PlayerGui?
+		if PlayerGui then
+			local Interface:ScreenGui? = PlayerGui:WaitForChild("A-Chassis Interface", 1) :: ScreenGui | nil
+			if Interface and Interface:IsA("ScreenGui") then
+				if LogInConsole then
+					print(`:: Seat-Lock, {version} :: Destroyed UI from {Player.Name}`)
 				end
-			end) :: boolean, type(string)
-			if not Success and Response and ErrorInConsole then
-				warn(`:: Seat-Lock, {version} :: An error occurred in MoveRootPart: {Response}`)
+				Interface:Destroy()
+			end
+			task.wait(GUIWaitTime)
+			if Interface and Interface:IsA("ScreenGui") then
+				if LogInConsole then
+					print(`:: Seat-Lock, {version} :: (Double Check) Destroyed UI from {Player.Name}`)
+				end
+				Interface:Destroy()
 			end
 		end
-
-		local function DestroyInterface(Player:Player)
-			local Success, Response: string? = pcall(function()
-				local PlayerGui:PlayerGui? = Player:WaitForChild("PlayerGui", 1) :: PlayerGui?
-				if PlayerGui then
-					local Interface:ScreenGui? = PlayerGui:WaitForChild("A-Chassis Interface", 1) :: ScreenGui | nil
-					if Interface and Interface:IsA("ScreenGui") then
-						if LogInConsole then
-							print(`:: Seat-Lock, {version} :: Destroyed UI from {Player.Name}`)
-						end
-						Interface:Destroy()
-					end
-					task.wait(GUIWaitTime)
-					if Interface and Interface:IsA("ScreenGui") then
-						if LogInConsole then
-							print(`:: Seat-Lock, {version} :: (Double Check) Destroyed UI from {Player.Name}`)
-						end
-						Interface:Destroy()
-					end
-				end
-			end) :: boolean, type(string)
-			if not Success and Response and ErrorInConsole then
-				warn(`:: Seat-Lock, {version} :: An error occurred in DestroyInterface: {Response}`)
-			end
-		end
-
-		local function DestroyWeld(VehicleSeat:VehicleSeat)
-			local Success, Response: string? = pcall(function()
-				local SeatWeld = VehicleSeat:FindFirstChild("SeatWeld")
-				if SeatWeld:IsA("Weld") and SeatWeld.Part1 and SeatWeld.Part1.Parent:FindFirstChildOfClass("Humanoid") then 
-					SeatWeld:Destroy()
-				end
-			end) :: boolean, type(string)
-			if not Success and Response and ErrorInConsole then
-				warn(`:: Seat-Lock, {version} :: An error occurred in DestroyWeld: {Response}`)
-			end
-		end
-
-		if SeatWeldDetection then
-			VehicleSeat.ChildAdded:Connect(function(child)
-				local Success, Response: string? = pcall(function()
-					if child:IsA("Weld") and child.Name == "SeatWeld" then
-						local Character = child.Part1.Parent
-						local Humanoid:Humanoid = Character.Humanoid
-						local Player = Players:GetPlayerFromCharacter(Character)
-						if Player then
-							local Success, Authorized: string? | boolean? = pcall(Player.IsInGroup, Player, GroupID) 
-							if Success then
-								if not Authorized then
-									task.spawn(DestroyInterface, Player)
-									if LogInConsole and Car then
-										warn(`:: Seat-Lock, {version} :: {Player.Name} tried to drive {Car.Name}! (SeatWeld)`)
-									end
-									child:Destroy()
-									task.wait(DelayTime)
-									Humanoid.JumpPower += JumpPower
-									Humanoid.Jump = true
-									Humanoid.JumpPower -= JumpPower
-									if KillPlayer then Humanoid.Health = 0 end
-									MoveRootPart(Character.HumanoidRootPart)
-								end
-							else
-								task.spawn(DestroyInterface, Player)
-								if ErrorInConsole and Authorized then
-									warn(`:: Seat-Lock, {version} :: An error occured while checking GroupID! Error: {Authorized}`) -- Error response if no success
-								end 
-								child:Destroy()
-								task.wait(DelayTime)
-								Humanoid.JumpPower += JumpPower
-								Humanoid.Jump = true
-								Humanoid.JumpPower -= JumpPower
-								if KillPlayer then Humanoid.Health = 0 end
-								MoveRootPart(Character.HumanoidRootPart)
-							end
-						end
-					end
-				end) :: boolean, type(string)
-				if not Success and Response and ErrorInConsole then
-					warn(`:: Seat-Lock, {version} :: An error occurred in SeatWeld detection: {Response}`)
-				end
-			end)
-		end
-
-		if OccupantDetection then
-			VehicleSeat:GetPropertyChangedSignal("Occupant"):Connect(function()
-				local Success, Response: string? = pcall(function()
-					if VehicleSeat.Occupant then -- It would only be a Humanoid or nil, but we are already checking if it exists.
-						local Humanoid = VehicleSeat.Occupant
-						local Character = VehicleSeat.Occupant.Parent
-						local Player = Players:GetPlayerFromCharacter(Character)
-						if Player then
-							local Sucess, Authorized: string? | boolean? = pcall(Player.IsInGroup, Player, GroupID)
-							if Sucess then
-								if not Authorized then
-									if LogInConsole and Car then
-										warn(`:: Seat-Lock, {version} :: {Player.Name} tried to drive {Car.Name}! (Occupant)`)
-									end
-									task.spawn(DestroyInterface, Player)
-									task.spawn(DestroyWeld, VehicleSeat)
-									task.wait(DelayTime)
-									Humanoid.JumpPower += JumpPower
-									Humanoid.Jump = true
-									Humanoid.JumpPower -= JumpPower
-									if KillPlayer then Humanoid.Health = 0 end
-									MoveRootPart(Character.HumanoidRootPart)
-								end
-							else
-								if ErrorInConsole and Authorized then
-									warn(`:: Seat-Lock, {version} :: An error occured while checking GroupID! Error: {Authorized}`)-- Error response if no success
-								end 
-								task.spawn(DestroyInterface, Player)
-								task.spawn(DestroyWeld, VehicleSeat)
-								task.wait(DelayTime)
-								Humanoid.JumpPower += JumpPower
-								Humanoid.Jump = true
-								Humanoid.JumpPower -= JumpPower
-								if KillPlayer then Humanoid.Health = 0 end
-								MoveRootPart(Character.HumanoidRootPart)
-							end
-						end
-					end
-				end) :: boolean, type(string)
-				if not Success and Response and ErrorInConsole then
-					warn(`:: Seat-Lock, {version} :: An error occurred in Occupant detection: {Response}`)
-				end
-			end)
-		end
-	else
-		if LogInConsole or ErrorInConsole then
-			warn(`:: Seat-Lock, {version} :: WARNING - No detection has been enabled in the script! Disabling...`)
-		end
-		script.Enabled = false
+	end) :: boolean, type(string)
+	if not Success and Response and ErrorInConsole then
+		warn(`:: Seat-Lock, {version} :: An error occurred in DestroyInterface: {Response}`)
 	end
-else
+end
+
+local function DestroyWeld(VehicleSeat:VehicleSeat)
+	local Success, Response: string? = pcall(function()
+		local SeatWeld = VehicleSeat:FindFirstChild("SeatWeld")
+		if SeatWeld:IsA("Weld") and SeatWeld.Part1 and SeatWeld.Part1.Parent:FindFirstChildOfClass("Humanoid") then 
+			SeatWeld:Destroy()
+		end
+	end) :: boolean, type(string)
+	if not Success and Response and ErrorInConsole then
+		warn(`:: Seat-Lock, {version} :: An error occurred in DestroyWeld: {Response}`)
+	end
+end
+
+
+if not Enabled then
 	script.Enabled = false
+end
+-- // Prerequisites; checking
+if not VehicleSeat then
+	warn(`:: Seat-Lock, {version} :: Aborting; Is the VehicleSeat parent set?`)
+	return
+end
+if not VehicleSeat.Parent then
+	warn(`:: Seat-Lock, {version} :: Aborting; Is the VehicleSeat parented under a model?`)
+	return
+else
+	Car = VehicleSeat.Parent
+end 
+if typeof(GroupID) ~= "number" or GroupID <= 0 then
+	warn(`:: Seat-Lock, {version} :: Aborting; Did you forget to add a group ID? Is the GroupID a positive integer? Is the GroupId an integer at all?`)
+	return
+end
+if (not VehicleSeat:IsA("VehicleSeat") and not VehicleSeat:IsA("Seat")) then
+	warn(`:: Seat-Lock, {version} :: Aborting; Is the script placed under a VehicleSeat or an ordinary seat?`)
+	return
+end
+if VehicleSeat:IsA("Seat") and (LogInConsole or ErrorInConsole) then
+	warn(`:: Seat-Lock, {version} :: WARNING - Ordinary seats are NOT fully compatible with this script. Use with caution!`)
+end
+-- // Init
+if not (OccupantDetection or SeatWeldDetection) then
+	if LogInConsole or ErrorInConsole then
+		warn(`:: Seat-Lock, {version} :: WARNING - No detection has been enabled in the script! Disabling...`)
+	end
+	script.Enabled = false
+end
+
+
+if SeatWeldDetection then
+	VehicleSeat.ChildAdded:Connect(function(child)
+		local Success, Response: string? = pcall(function()
+			if child:IsA("Weld") and child.Name == "SeatWeld" then
+				local Character = child.Part1.Parent
+				local Humanoid:Humanoid = Character.Humanoid
+				local Player = Players:GetPlayerFromCharacter(Character)
+				if Player then
+					local Success, Authorized: string? | boolean? = pcall(Player.IsInGroup, Player, GroupID) 
+					if Success then
+						if not Authorized then
+							task.spawn(DestroyInterface, Player)
+							if LogInConsole and Car then
+								warn(`:: Seat-Lock, {version} :: {Player.Name} tried to drive {Car.Name}! (SeatWeld)`)
+							end
+							child:Destroy()
+							task.wait(DelayTime)
+							Humanoid.JumpPower += JumpPower
+							Humanoid.Jump = true
+							Humanoid.JumpPower -= JumpPower
+							if KillPlayer then Humanoid.Health = 0 end
+							MoveRootPart(Character.HumanoidRootPart)
+						end
+					else
+						task.spawn(DestroyInterface, Player)
+						if ErrorInConsole and Authorized then
+							warn(`:: Seat-Lock, {version} :: An error occured while checking GroupID! Error: {Authorized}`) -- Error response if no success
+						end 
+						child:Destroy()
+						task.wait(DelayTime)
+						Humanoid.JumpPower += JumpPower
+						Humanoid.Jump = true
+						Humanoid.JumpPower -= JumpPower
+						if KillPlayer then Humanoid.Health = 0 end
+						MoveRootPart(Character.HumanoidRootPart)
+					end
+				end
+			end
+		end) :: boolean, type(string)
+		if not Success and Response and ErrorInConsole then
+			warn(`:: Seat-Lock, {version} :: An error occurred in SeatWeld detection: {Response}`)
+		end
+	end)
+elseif OccupantDetection then
+	VehicleSeat:GetPropertyChangedSignal("Occupant"):Connect(function()
+		local Success, Response: string? = pcall(function()
+			if VehicleSeat.Occupant then -- It would only be a Humanoid or nil, but we are already checking if it exists.
+				local Humanoid = VehicleSeat.Occupant
+				local Character = VehicleSeat.Occupant.Parent
+				local Player = Players:GetPlayerFromCharacter(Character)
+				if Player then
+					local Sucess, Authorized: string? | boolean? = pcall(Player.IsInGroup, Player, GroupID)
+					if Sucess then
+						if not Authorized then
+							if LogInConsole and Car then
+								warn(`:: Seat-Lock, {version} :: {Player.Name} tried to drive {Car.Name}! (Occupant)`)
+							end
+							task.spawn(DestroyInterface, Player)
+							task.spawn(DestroyWeld, VehicleSeat)
+							task.wait(DelayTime)
+							Humanoid.JumpPower += JumpPower
+							Humanoid.Jump = true
+							Humanoid.JumpPower -= JumpPower
+							if KillPlayer then Humanoid.Health = 0 end
+							MoveRootPart(Character.HumanoidRootPart)
+						end
+					else
+						if ErrorInConsole and Authorized then
+							warn(`:: Seat-Lock, {version} :: An error occured while checking GroupID! Error: {Authorized}`)-- Error response if no success
+						end 
+						task.spawn(DestroyInterface, Player)
+						task.spawn(DestroyWeld, VehicleSeat)
+						task.wait(DelayTime)
+						Humanoid.JumpPower += JumpPower
+						Humanoid.Jump = true
+						Humanoid.JumpPower -= JumpPower
+						if KillPlayer then Humanoid.Health = 0 end
+						MoveRootPart(Character.HumanoidRootPart)
+					end
+				end
+			end
+		end) :: boolean, type(string)
+		if not Success and Response and ErrorInConsole then
+			warn(`:: Seat-Lock, {version} :: An error occurred in Occupant detection: {Response}`)
+		end
+	end)
 end
 
